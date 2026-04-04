@@ -1,0 +1,193 @@
+﻿Título del Proyecto
+
+
+“AeroRuta: Plataforma de Carpooling Funcional para Optimizar la Movilidad Segura y Sostenible entre el Aeropuerto José María Córdova y las Terminales de Buses de Medellín”
+
+
+Sebastian Lopera Jaramillo (1007240544), Simon Arias Correa (1037670605), & Esteban Ramos Gonzalez (1018232343)
+
+
+
+
+
+
+
+
+
+
+Identificación del Problema, Necesidad o Tema de Interés
+
+
+La movilidad entre el Aeropuerto José María Córcova y las terminales de buses de Medellín presenta dificultades como afrontar altos costos de transporte, sufrir congestión vehicular y carecer de alternativas seguras y flexibles. Estas condiciones generan retrasos, aumentan la incertidumbre y contribuyen al impacto ambiental. Surge la necesidad de implementar una aplicación de carpooling que permita optimizar la ocupación de los vehículos particulares, reducir costos y mejorar la eficiencia del transporte urbano en el área metropolitana de Medellín.
+
+
+Como valor agregado, se propone incluir un sistema de puntos y recompensas (Gamificación), que incentive a los usuarios a utilizar la aplicación con frecuencia, compartir viajes de manera segura y promover la sostenibilidad. Este sistema permitirá acumular puntos por cada viaje realizado, que podrán convertirse en beneficios dentro de la plataforma.
+  
+
+
+
+
+
+Alcance
+
+
+El proyecto se delimita a desarrollar una aplicación 100% funcional de carpooling con las siguientes características:
+* Interfaz adaptable a diferentes dispositivos (web, móvil y tablet).
+* Persistencia de datos para conservar información de usuarios, viajes y transacciones.
+* Conexión a base de datos para administrar perfiles de conductor, pasajero y administrador.
+* Publicación de viajes por parte del conductor, incluyendo fecha, punto de recogida, punto de bajada y precio por pasajero.
+* Consulta de viajes disponibles por parte de los pasajeros según origen y destino.
+* Reservas de cupos y visualización de pasajeros confirmados por el conductor.
+* Sistema de pagos real o simulado mediante API, donde el conductor paga a los dueños de la plataforma por publicar y conseguir pasajeros.
+* Cobertura limitada al valle de Aburrá, sus dos terminales de buses y el Aeropuerto José María Córdova, incluyendo zonas cercanas al aeropuerto(municipios).
+
+
+
+
+Objetivo General
+
+
+Desarrollar una aplicación web de carpooling que permita conectar conductores y pasajeros en desplazamientos entre el Aeropuerto José María Córdova y el área metropolitana de Medellin, garantizando seguridad, flexibilidad y eficiencia mediante perfiles verificados, conexión a base de datos y un sistema de pagos integrado.
+
+
+
+
+Hipótesis de Solución / Pregunta de Investigación
+* Hipótesis: La implementación de una aplicación de carpooling funcional, con perfiles verificados y sistema de pagos integrado, permitirá optimizar la movilidad urbana, reducir costos de transporte y mejorar la confianza de los usuarios en el área metropolitana de Medellín y zonas aledañas al aeropuerto.
+* Pregunta de investigación: ¿Cómo puede una aplicación de carpooling contribuir a mejorar la movilidad segura y sostenible entre el Aeropuerto José María Córdova y las terminales de buses de Medellín?
+
+
+
+
+Validación con Usuarios
+
+
+1. Conductor de plataformas (Medellín – Aeropuerto José María Córdova):
+Piensa que la aplicación sería útil para aprovechar mejor los viajes que ya realiza hacia el aeropuerto, reduciendo costos y aumentando ingresos. Considera positivo que pueda publicar viajes con fecha, origen, destino y precio, y que el sistema le permita ver qué pasajeros reservaron. Cree que la opción de pagar a la plataforma solo si consigue pasajeros es justa y viable.
+2. Pasajero habitual al Aeropuerto José María Córdova (Terminal Norte – Aeropuerto):
+Opina que la aplicación le daría más confianza y seguridad al consultar viajes disponibles en tiempo real. Le parece atractivo poder elegir entre diferentes conductores y contar con perfiles verificados. Piensa que el sistema de reservas y pagos integrados facilitaría la experiencia y reduciría la incertidumbre de conseguir transporte económico al aeropuerto.
+3. Estudiante del Politécnico Jaime Isaza Cadavid (Medellín – Terminal Sur):
+Imagina que la aplicación sería práctica para estudiantes que viajan con frecuencia hacia las terminales de buses. Considera que la interfaz debe ser sencilla y adaptable a móviles, ya que la mayoría de estudiantes usan el celular para este tipo de gestiones. Piensa que la opción de compartir viajes ayudaría a reducir costos y fomentar la movilidad sostenible.
+4.Familiar residente en Medellín que viaja normalmente (Medellín – Rionegro – Aeropuerto):
+Cree que la aplicación sería muy útil para personas que viven en Medellín y deben desplazarse con frecuencia hacia el aeropuerto o pueblos cercanos. Piensa que la posibilidad de consultar viajes programados y reservar cupos con anticipación le daría tranquilidad. Además, considera que el sistema de pagos, aunque sea simulado, es importante para garantizar confianza entre conductor y pasajero.
+Resultados simulados: Los cuatro usuarios expresan que la aplicación, aunque aún no desarrollada, sería una solución práctica y confiable para mejorar la movilidad entre las terminales de buses de Medellín, el Aeropuerto José María Córdova y las zonas cercanas, validando la pertinencia del proyecto.
+
+
+
+
+
+
+
+
+
+
+Objetivos Específicos(5- analizar,diseñar,desarrollar,validar,desplegar)
+1. Diseñar la interfaz de usuario adaptable a diferentes dispositivos.
+2. Implementar la persistencia de datos para garantizar seguridad y confiabilidad en la información.
+3. Configurar la base de datos para gestionar perfiles de conductor, pasajero y administrador.
+4. Desarrollar el sistema de publicación y reserva de viajes entre las terminales y el aeropuerto.
+5. Integrar un sistema de pagos simulado o real mediante API.
+6. Incorporar el sistema de puntos y recompensas para incentivar el uso de la aplicación.
+7. Validar la aplicación con usuarios reales en el área metropolitana de Medellín.
+
+
+
+
+ Requisitos
+
+
+
+
+Funcionales
+* Registrar y autenticar usuarios (conductor, pasajero, administrador).
+* Publicar viajes con fecha, origen, destino y precio(conductor).
+* Consultar viajes disponibles en tiempo real.
+* Reservar cupos en vehículos.
+* Procesar pagos simulados o reales mediante API.
+* Asignar puntos y recompensas por viajes realizados.
+
+
+No funcionales
+* Interfaz intuitiva y adaptable a dispositivos móviles y web.
+* Seguridad en el manejo de datos personales.
+* Escalabilidad para soportar múltiples usuarios simultáneos.
+* Disponibilidad mínima del 95%.
+* Rendimiento óptimo en consultas y reservas.
+
+
+
+
+
+
+
+
+Marco Teórico
+El carpooling es una modalidad de transporte compartido que busca optimizar la ocupación de vehículos particulares, reduciendo costos y emisiones contaminantes. Se fundamenta en principios de movilidad sostenible, economía colaborativa y tecnologías de la información.
+La gamificación, aplicada en plataformas digitales, consiste en usar dinámicas de juego (puntos, niveles, recompensas) para incentivar la participación activa de los usuarios.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Proyectos Similares (Cuadro Comparativo)
+
+
+Aplicación
+	Cobertura
+	Características principales
+	Limitaciones
+	BlaBlaCar
+	Internacional (Europa, LatAm)
+	Publicación de viajes interurbanos, perfiles verificados, sistema de pagos
+	No enfocado en trayectos urbanos cortos
+	Waze Carpool
+	EE.UU. y algunos países
+	Integración con Waze, coincidencia de rutas, pagos compartidos
+	Cobertura limitada en Latinoamérica
+	Uber Carpool (UberPool)
+	Internacional
+	Reserva inmediata, integración con Uber, optimización de rutas
+	Costos variables, dependencia de la plataforma Uber
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Referencias
+
+
+Cisco Systems. (2024). Portfolio Explorer for Transportation. Cisco. Recuperado de https://www.cisco.com
+
+
+Cisco Systems. (2023). Cisco Kinetic for Cities: Parking and Mobility Solutions. Cisco. Recuperado de https://www.cisco.com
+
+
+Cisco Systems. (2022). Smart and Connected Communities: Transforming Urban Mobility. Cisco. Recuperado de https://www.cisco.com
+
+
+International Organization for Standardization (ISO). (2024). Smart city mobility: Transforming the future of urban transportation. ISO. Recuperado de https://www.iso.org
+
+
+Unión Internacional de Telecomunicaciones (UIT). (2023). ICTs for Smart Sustainable Cities. ITU. Recuperado de https://www.itu.int
