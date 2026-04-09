@@ -1,7 +1,9 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
 
 export default function RecompensasPage() {
+  const [activeTab, setActiveTab] = useState<'conductor' | 'pasajero'>('conductor');
   return (
     <div className="min-h-screen bg-base-200 py-10 px-4">
       <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -19,37 +21,100 @@ export default function RecompensasPage() {
           </div>
         </div>
 
-        {/* Recompensas */}
-        <h2 className="text-2xl font-bold mb-4 mt-10">🚀 Canjea tus puntos</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="card bg-base-100 shadow-xl border border-base-200 hover:border-secondary transition-all">
-            <div className="card-body items-center text-center">
-              <div className="text-4xl mb-2">☕</div>
-              <h3 className="card-title">Café en Aeropuerto</h3>
-              <p className="text-sm text-neutral-content">Válido en Juan Valdez del JMC.</p>
-              <div className="mt-4 font-bold text-secondary">500 pts</div>
-              <button className="btn btn-secondary w-full mt-2">Canjear</button>
+        {/* Selector de Perfil (Tabs) */}
+        <div className="flex justify-center mb-8">
+           <div role="tablist" className="tabs tabs-boxed bg-base-100 shadow-md p-1 rounded-2xl w-full max-w-sm">
+             <a role="tab" className={`tab h-12 transition-all rounded-xl font-bold ${activeTab === 'conductor' ? 'bg-primary text-primary-content' : 'hover:bg-base-200'}`} onClick={() => setActiveTab('conductor')}>🚍 Modo Conductor</a>
+             <a role="tab" className={`tab h-12 transition-all rounded-xl font-bold ${activeTab === 'pasajero' ? 'bg-secondary text-secondary-content' : 'hover:bg-base-200'}`} onClick={() => setActiveTab('pasajero')}>🎒 Modo Pasajero</a>
+           </div>
+        </div>
+
+        <div className="min-h-[400px]">
+          {/* Recompensas Conductores */}
+          {activeTab === 'conductor' && (
+            <div className="animate-in slide-in-from-left-8 fade-in flex-1 duration-500">
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-primary">
+                  🚘 Tus Beneficios Operativos
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div className="card bg-base-100 shadow-xl border border-base-200 hover:border-primary transition-all rounded-3xl hover:-translate-y-2">
+                    <div className="card-body items-center text-center p-6">
+                      <div className="text-4xl mb-2">☕</div>
+                      <h3 className="card-title text-base">Café en Aeropuerto</h3>
+                      <div className="mt-2 font-black text-primary">250 pts</div>
+                      <button className="btn btn-primary rounded-xl btn-sm w-full mt-4">Canjear</button>
+                    </div>
+                  </div>
+                  <div className="card bg-base-100 shadow-xl border border-base-200 hover:border-primary transition-all rounded-3xl hover:-translate-y-2">
+                    <div className="card-body items-center text-center p-6">
+                      <div className="text-4xl mb-2">🫧</div>
+                      <h3 className="card-title text-base flex-1">Lavada Full</h3>
+                      <div className="mt-2 font-black text-primary">800 pts</div>
+                      <button className="btn btn-primary rounded-xl btn-sm w-full mt-4">Canjear</button>
+                    </div>
+                  </div>
+                  <div className="card bg-base-100 shadow-xl border border-base-200 hover:border-primary transition-all rounded-3xl hover:-translate-y-2">
+                    <div className="card-body items-center text-center p-6">
+                      <div className="text-4xl mb-2">⛽</div>
+                      <h3 className="card-title text-base flex-1">10% Dcto Tanqueada</h3>
+                      <div className="mt-2 font-black text-primary">1,000 pts</div>
+                      <button className="btn btn-primary rounded-xl btn-sm w-full mt-4">Canjear</button>
+                    </div>
+                  </div>
+                  <div className="card bg-base-100 shadow-xl border border-base-200 transition-all rounded-3xl opacity-60 grayscale hover:grayscale-0">
+                    <div className="card-body items-center text-center p-6">
+                      <div className="text-4xl mb-2">🔧</div>
+                      <h3 className="card-title text-base flex-1">Dcto Cambio Aceite</h3>
+                      <div className="mt-2 font-black text-neutral-content">2,000 pts</div>
+                      <button className="btn btn-neutral rounded-xl btn-sm w-full mt-4" disabled>Insuficientes</button>
+                    </div>
+                  </div>
+                </div>
             </div>
-          </div>
-          <div className="card bg-base-100 shadow-xl border border-base-200 hover:border-secondary transition-all opacity-50 relative">
-            <div className="card-body items-center text-center">
-              <div className="text-4xl mb-2">🏷️</div>
-              <h3 className="card-title">10% Off Viaje</h3>
-              <p className="text-sm text-neutral-content">Descuento de la comisión en el próximo viaje como pasajero.</p>
-              <div className="mt-4 font-bold text-secondary">800 pts</div>
-              <button className="btn btn-secondary w-full mt-2" disabled>Insuficientes</button>
+          )}
+
+          {/* Recompensas Pasajeros */}
+          {activeTab === 'pasajero' && (
+            <div className="animate-in slide-in-from-right-8 fade-in flex-1 duration-500">
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-secondary">
+                  🎒 Tus Recompensas de Viaje
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div className="card bg-base-100 shadow-xl border border-base-200 hover:border-secondary transition-all rounded-3xl hover:-translate-y-2">
+                    <div className="card-body items-center text-center p-6">
+                      <div className="text-4xl mb-2">☕</div>
+                      <h3 className="card-title text-base">Café en Aeropuerto</h3>
+                      <div className="mt-2 font-black text-secondary">250 pts</div>
+                      <button className="btn btn-secondary rounded-xl btn-sm w-full mt-4">Canjear</button>
+                    </div>
+                  </div>
+                  <div className="card bg-base-100 shadow-xl border border-base-200 hover:border-secondary transition-all rounded-3xl hover:-translate-y-2">
+                    <div className="card-body items-center text-center p-6">
+                      <div className="text-4xl mb-2">🏷️</div>
+                      <h3 className="card-title text-base flex-1">10% Dcto Próximo Viaje</h3>
+                      <div className="mt-2 font-black text-secondary">600 pts</div>
+                      <button className="btn btn-secondary rounded-xl btn-sm w-full mt-4">Canjear</button>
+                    </div>
+                  </div>
+                  <div className="card bg-base-100 shadow-xl border border-base-200 hover:border-secondary transition-all rounded-3xl hover:-translate-y-2">
+                    <div className="card-body items-center text-center p-6">
+                      <div className="text-4xl mb-2">✈️</div>
+                      <h3 className="card-title text-base shrink flex-1">5% Dcto Ticket Aéreo</h3>
+                      <div className="mt-2 font-black text-secondary">1,000 pts</div>
+                      <button className="btn btn-secondary rounded-xl btn-sm w-full mt-4">Canjear</button>
+                    </div>
+                  </div>
+                  <div className="card bg-base-100 shadow-xl border border-base-200 transition-all rounded-3xl opacity-60 grayscale hover:grayscale-0 relative">
+                    <div className="card-body items-center text-center p-6">
+                      <div className="text-4xl mb-2">💺</div>
+                      <h3 className="card-title text-base flex-1">Asiento GRATIS</h3>
+                      <div className="mt-2 font-black text-neutral-content">3,000 pts</div>
+                      <button className="btn btn-neutral rounded-xl btn-sm w-full mt-4" disabled>Insuficientes</button>
+                    </div>
+                  </div>
+                </div>
             </div>
-            <div className="absolute inset-0 bg-base-200/50 backdrop-blur-[1px] flex items-center justify-center rounded-2xl z-10 hidden"></div>
-          </div>
-          <div className="card bg-base-100 shadow-xl border border-base-200 hover:border-secondary transition-all">
-            <div className="card-body items-center text-center">
-              <div className="text-4xl mb-2">🅿️</div>
-              <h3 className="card-title text-center">15 min Parqueadero</h3>
-              <p className="text-sm text-neutral-content">Descuento en zona de descarga del aeropuerto.</p>
-              <div className="mt-4 font-bold text-secondary">1,000 pts</div>
-              <button className="btn btn-secondary w-full mt-2">Canjear</button>
-            </div>
-          </div>
+          )}
         </div>
 
       </div>

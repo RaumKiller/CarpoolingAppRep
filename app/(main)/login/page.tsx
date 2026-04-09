@@ -1,7 +1,32 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { loginUser } from "../../actions/auth";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+     e.preventDefault();
+     setError("");
+     setLoading(true);
+     
+     const res = await loginUser(email, password);
+     
+     setLoading(false);
+     if (res.error) {
+        setError(res.error);
+     } else {
+        router.push(res.role === "conductor" ? "/dashboard/conductor" : "/dashboard/pasajero");
+        router.refresh();
+     }
+  };
+
   return (
     <div className="min-h-[85vh] flex items-center justify-center bg-base-200 px-4 py-12">
       <div className="card w-full max-w-md bg-base-100 shadow-2xl border border-base-300 transform transition-all animate-in fade-in zoom-in-95 duration-500 rounded-3xl">
@@ -16,21 +41,23 @@ export default function LoginPage() {
               <p className="text-neutral-content mt-2">Inicia sesión en AeroRuta</p>
            </div>
            
-           <form className="space-y-4">
+           {error && <div className="alert alert-error mb-4 font-bold text-sm py-2">{error}</div>}
+
+           <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="form-control">
                 <label className="label"><span className="label-text font-bold">Correo electrónico</span></label>
-                <input type="email" placeholder="correo@ejemplo.com" className="input input-bordered w-full focus:border-primary transition-colors bg-base-200 focus:bg-base-100" />
+                <input value={email} onChange={(e) => setEmail(e.target.value)} required type="email" placeholder="correo@ejemplo.com" className="input input-bordered w-full focus:border-primary transition-colors bg-base-200 focus:bg-base-100" />
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-bold">Contraseña</span>
                   <a href="#" className="label-text-alt link tracking-wide link-primary">¿Olvidaste tu contraseña?</a>
                 </label>
-                <input type="password" placeholder="••••••••" className="input input-bordered w-full focus:border-primary transition-colors bg-base-200 focus:bg-base-100" />
+                <input value={password} onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="••••••••" className="input input-bordered w-full focus:border-primary transition-colors bg-base-200 focus:bg-base-100" />
               </div>
 
-              <button className="btn btn-primary w-full mt-6 shadow-lg hover:scale-[1.02] transition-transform text-white rounded-xl">
-                 Iniciar Sesión
+              <button disabled={loading} className="btn btn-primary w-full mt-6 shadow-lg hover:scale-[1.02] transition-transform text-white rounded-xl">
+                 {loading ? <span className="loading loading-spinner"></span> : "Iniciar Sesión"}
               </button>
            </form>
 

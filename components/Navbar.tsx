@@ -1,6 +1,16 @@
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { logoutUser } from '../app/actions/auth';
 
-export default function Navbar() {
+export default async function Navbar() {
+  const sessionStr = (await cookies()).get('session')?.value;
+  let user = null;
+  if (sessionStr) {
+     try { user = JSON.parse(sessionStr); } catch(e) {}
+  }
+
+  const dashboardUrl = user?.role === 'conductor' ? '/dashboard/conductor' : '/dashboard/pasajero';
+
   return (
     <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50 px-4 md:px-8">
       <div className="navbar-start">
@@ -11,7 +21,25 @@ export default function Navbar() {
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-200">
             <li><Link href="/buscar">Buscar Viaje</Link></li>
             <li><Link href="/publicar">Publicar Viaje</Link></li>
-            <li><Link href="/recompensas">Mis Puntos</Link></li>
+            <li><Link href="/recompensas">🏆 Mis Puntos</Link></li>
+            {user && (
+               <>
+                 <div className="divider my-0 py-0"></div>
+                 <li><Link href={dashboardUrl} className="font-bold text-primary">👤 Mi Perfil ({user.role})</Link></li>
+                 <li>
+                   <form action={logoutUser} className="w-full">
+                     <button type="submit" className="text-error font-bold w-full text-left">Salir</button>
+                   </form>
+                 </li>
+               </>
+            )}
+            {!user && (
+               <>
+                 <div className="divider my-0 py-0"></div>
+                 <li><Link href="/login" className="font-bold">Iniciar Sesión</Link></li>
+                 <li><Link href="/registro" className="font-bold text-primary">Regístrate</Link></li>
+               </>
+            )}
           </ul>
         </div>
         <Link href="/" className="btn btn-ghost text-2xl font-black text-primary gap-2 flex items-center hover:bg-transparent">
@@ -29,8 +57,28 @@ export default function Navbar() {
         </ul>
       </div>
       <div className="navbar-end gap-2 text-sm sm:text-base">
-        <Link href="/login" className="btn btn-ghost font-medium hidden sm:inline-flex">Iniciar Sesión</Link>
-        <Link href="/registro" className="btn btn-primary rounded-full px-4 sm:px-6 text-white font-semibold shadow-md shadow-primary/20">Regístrate</Link>
+        
+        {user ? (
+           <div className="dropdown dropdown-end hidden sm:block">
+             <div tabIndex={0} role="button" className="btn btn-primary btn-outline font-bold rounded-xl px-6">
+                Mi Cuenta
+             </div>
+             <ul tabIndex={0} className="dropdown-content z-[1] menu p-3 shadow-2xl bg-base-100 rounded-3xl w-56 border border-base-200 mt-4 gap-2">
+               <li className="menu-title text-center text-xs opacity-60 truncate">{user.email}</li>
+               <li><a href={dashboardUrl} className="font-bold p-3 text-primary hover:bg-primary/10 rounded-xl">⚙️ Panel de {user.role === 'conductor' ? 'Conductor' : 'Pasajero'}</a></li>
+               <li>
+                 <form action={logoutUser} className="w-full">
+                    <button type="submit" className="font-bold p-3 text-error hover:bg-error/10 rounded-xl w-full text-left">🚪 Cerrar Sesión</button>
+                 </form>
+               </li>
+             </ul>
+           </div>
+        ) : (
+          <>
+            <Link href="/login" className="btn btn-ghost font-medium hidden sm:inline-flex">Iniciar Sesión</Link>
+            <Link href="/registro" className="btn btn-primary rounded-full px-4 sm:px-6 text-white font-semibold shadow-md shadow-primary/20">Regístrate</Link>
+          </>
+        )}
       </div>
     </div>
   );

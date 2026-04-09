@@ -1,4 +1,4 @@
-﻿Título del Proyecto
+Título del Proyecto
 
 
 “AeroRuta: Plataforma de Carpooling Funcional para Optimizar la Movilidad Segura y Sostenible entre el Aeropuerto José María Córdova y las Terminales de Buses de Medellín”
@@ -21,7 +21,7 @@ Identificación del Problema, Necesidad o Tema de Interés
 La movilidad entre el Aeropuerto José María Córcova y las terminales de buses de Medellín presenta dificultades como afrontar altos costos de transporte, sufrir congestión vehicular y carecer de alternativas seguras y flexibles. Estas condiciones generan retrasos, aumentan la incertidumbre y contribuyen al impacto ambiental. Surge la necesidad de implementar una aplicación de carpooling que permita optimizar la ocupación de los vehículos particulares, reducir costos y mejorar la eficiencia del transporte urbano en el área metropolitana de Medellín.
 
 
-Como valor agregado, se propone incluir un sistema de puntos y recompensas (Gamificación), que incentive a los usuarios a utilizar la aplicación con frecuencia, compartir viajes de manera segura y promover la sostenibilidad. Este sistema permitirá acumular puntos por cada viaje realizado, que podrán convertirse en beneficios dentro de la plataforma.
+Como valor agregado, se propone incluir un fuerte ecosistema de Gamificación basado en Ligas de Progreso (Bronce, Plata, Oro, Diamante). Este sistema recompensa de forma estructurada e independiente a los usuarios: a los Conductores con incentivos operativos (descuentos en combustible, lavadas) y a los Pasajeros con incentivos de viaje (asientos gratis, descuentos en vuelos). Además, se incluyen Dashboards interactivos y analíticos para que ambos actores supervisen visualmente sus metas de lealtad y balances financieros con alto detalle.
   
 
 
@@ -35,11 +35,11 @@ El proyecto se delimita a desarrollar una aplicación 100% funcional de carpooli
 * Interfaz adaptable a diferentes dispositivos (web, móvil y tablet).
 * Persistencia de datos para conservar información de usuarios, viajes y transacciones.
 * Conexión a base de datos para administrar perfiles de conductor, pasajero y administrador.
-* Publicación de viajes por parte del conductor, incluyendo fecha, punto de recogida, punto de bajada y precio por pasajero.
+* Publicación de viajes por parte del conductor, incluyendo fecha, punto de recogida y punto de bajada. El precio es calculado dinámicamente mediante un Motor de Tarifas.
 * Consulta de viajes disponibles por parte de los pasajeros según origen y destino.
 * Reservas de cupos y visualización de pasajeros confirmados por el conductor.
-* Sistema de pagos real o simulado mediante API, donde el conductor paga a los dueños de la plataforma por publicar y conseguir pasajeros.
-* Cobertura limitada al valle de Aburrá, sus dos terminales de buses y el Aeropuerto José María Córdova, incluyendo zonas cercanas al aeropuerto(municipios).
+* Sistema de pagos real o simulado mediante API. La comisión de plataforma se cobra únicamente al pasajero. El saldo se pre-autoriza al reservar y la captura/cobro real ocurre en el momento en que el viaje se inicia o al llenar los 4 cupos.
+* Cobertura delimitada a tres zonas logísticas: Valle de Aburrá central (Medellín, Bello, Itagüí, Sabaneta), municipios del Oriente antioqueño (Llanogrande, Rionegro, Marinilla, Retiro, La Ceja, La Unión, El Carmen de Viboral, El Santuario, Guarne, Santa Elena), y municipios con recargo en extremos del Valle (Caldas, Copacabana, San Félix) los cuales cuentan con un límite de geocercado rígido de 3 KM para la recolección conjunta de pasajeros.
 
 
 
@@ -63,7 +63,7 @@ Validación con Usuarios
 
 
 1. Conductor de plataformas (Medellín – Aeropuerto José María Córdova):
-Piensa que la aplicación sería útil para aprovechar mejor los viajes que ya realiza hacia el aeropuerto, reduciendo costos y aumentando ingresos. Considera positivo que pueda publicar viajes con fecha, origen, destino y precio, y que el sistema le permita ver qué pasajeros reservaron. Cree que la opción de pagar a la plataforma solo si consigue pasajeros es justa y viable.
+Piensa que la aplicación sería útil para aprovechar mejor los viajes que ya realiza hacia el aeropuerto, reduciendo costos y aumentando ingresos. Considera positivo que pueda publicar viajes con fecha, origen y destino, dejando que el sistema cotice. Cree que la dinámica donde el pasajero es el que paga la comisión a la plataforma y no a él, es un excelente incentivo para usar el servicio.
 2. Pasajero habitual al Aeropuerto José María Córdova (Terminal Norte – Aeropuerto):
 Opina que la aplicación le daría más confianza y seguridad al consultar viajes disponibles en tiempo real. Le parece atractivo poder elegir entre diferentes conductores y contar con perfiles verificados. Piensa que el sistema de reservas y pagos integrados facilitaría la experiencia y reduciría la incertidumbre de conseguir transporte económico al aeropuerto.
 3. Estudiante del Politécnico Jaime Isaza Cadavid (Medellín – Terminal Sur):
@@ -99,12 +99,17 @@ Objetivos Específicos(5- analizar,diseñar,desarrollar,validar,desplegar)
 
 
 Funcionales
-* Registrar y autenticar usuarios (conductor, pasajero, administrador).
-* Publicar viajes con fecha, origen, destino y precio(conductor).
-* Consultar viajes disponibles en tiempo real.
-* Reservar cupos en vehículos.
-* Procesar pagos simulados o reales mediante API.
-* Asignar puntos y recompensas por viajes realizados.
+* Registro multi-paso diferenciado por rol: Captura de Nombre, Apellidos, Correo, Contraseña y Cédula. Condición estricta: Las fotografías (selfies) de perfil son obligatorias para Conductores, opcionales para Pasajeros.
+* Registro Documental y Homologación de Vehículos (Obligatorio para Conductores): Exigencia sistemática de vinculación de automotor aportando Placa, Marca/Modelo, Fotografías de Tarjeta de Propiedad, SOAT, Reivisión Técnico-Mecánica, Licencia de Conducción y Foto del exterior.
+* Restricciones de Vehículos en Plataforma: Reglas de negocio confirmables mediante el sistema (Mínimo 4 puertas, 4 asientos disponibles para pasajeros y capacidad de Aire Acondicionado).
+* Sistema de Administración de Flota Móvil: Tablero del conductor con pestañas separadas capaz de renderizar tarjetas rectangulares enriquecidas con telemetría propia de la placa (viajes terminados, puntos contribuidos por vehículo).
+* Publicar viajes con fecha, origen y destino (conductor).
+* Calcular tarifas dinámicamente usando Google Maps Distance Matrix API, ajustando el precio final por pasajero según distancia y ocupación.
+* Consultar viajes disponibles en tiempo real con validaciones de proximidad (Máximo 2 KM de desvío o Geofencing estricto).
+* Reservar cupos en vehículos sedán, SUVs o Vans familiares/turísticas (desde 4 hasta 16 pasajeros).
+* Procesar pagos simulados o reales mediante API: pre-autorización de saldo en el momento de la reserva y ejecución del cobro (captura) cuando el viaje se inicia o alcanza su máxima capacidad permitida.
+* Asignar puntos a través de un sistema de Ligas de Fidelización con catálogos de beneficios explícitamente separados para Conductores y Pasajeros.
+* Presentar analíticas y métricas de desempeño interactivo en un Dashboard personalizado, incluyendo visualización de barras de progreso de Liga y desgloses modales del resumen histórico de ingresos y ahorros mensuales.
 
 
 No funcionales
@@ -117,7 +122,14 @@ No funcionales
 
 
 
-
+Entidades Principales para Modelado de Datos (Preparación MER y Relacional)
+Con base en los requerimientos, las entidades estructurales a transcribir a Oracle 21c XE incluyen:
+1. USUARIOS: (ID_Usuario, Nombre, Apellidos, Email, Password_Hash, Rol, Cedula, Foto_URL, Fecha_Registro, Estado).
+2. VEHICULOS: (Placa, ID_Conductor, Marca_Modelo, Foto_Exterior_URL, Doc_TarjetaPropiedad_URL, Doc_SOAT_URL, Doc_Tecno_URL, Doc_Licencia_URL, Tiene_AC, Min_4Puertas, Viajes_Realizados, Puntos_Generados, Estado_Aprobacion).
+3. RUTAS/VIAJES: (ID_Viaje, ID_Conductor, Placa_Vehiculo, Origen_Coords, Destino_Coords, Fecha, Hora, Precio_Base_Cotizado, Asientos_Disponibles, Estado_Viaje).
+4. RESERVAS (TRANSACCIONES): (ID_Reserva, ID_Viaje, ID_Pasajero, Monto_Pre_Autorizado, Monto_Final_Capturado, Estado_Pago, Fecha_Reserva).
+5. GAMIFICACION_LIGAS: (ID_Liga, Rol_Objetivo, Nombre_Liga [Bronce..Diamante], Nivel_Meta_Viajes, Porcentaje_Beneficio).
+6. PROGRESO_USUARIO: (ID_Usuario, Puntos_Actuales, Viajes_Completados_Mes, ID_Liga_Actual).
 
 
 
